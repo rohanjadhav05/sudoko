@@ -1,85 +1,12 @@
+import { Sudoku } from "./ClassSudoku";
 
 export function generateSudoku() {
-    // Generate a basic solvable Sudoku puzzle. This is just a placeholder.
-    // Replace this with a proper Sudoku generation algorithm.
-    type NineByNineArray = number[][];
-
-    type ArrayOfTen2DArrays = NineByNineArray[];
-
-    const arrayOf2DArrays: ArrayOfTen2DArrays = [
-      [
-        [5, 3, 0, 0, 7, 0, 0, 0, 0],
-        [6, 0, 0, 1, 9, 5, 0, 0, 0],
-        [0, 9, 8, 0, 0, 0, 0, 6, 0],
-        [8, 0, 0, 0, 6, 0, 0, 0, 3],
-        [4, 0, 0, 8, 0, 3, 0, 0, 1],
-        [7, 0, 0, 0, 2, 0, 0, 0, 6],
-        [0, 6, 0, 0, 0, 0, 2, 8, 0],
-        [0, 0, 0, 4, 1, 9, 0, 0, 5],
-        [0, 0, 0, 0, 8, 0, 0, 7, 9],
-      ],
-      [
-        [0, 2, 0, 0, 0, 5, 7, 0, 0],
-        [0, 4, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 5],
-        [8, 0, 0, 5, 2, 0, 0, 0, 0],
-        [0, 0, 0, 7, 0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 0, 8, 3, 5, 2],
-        [0, 0, 1, 8, 7, 2, 0, 6, 0],
-        [0, 0, 0, 0, 0, 0, 0, 7, 4],
-        [0, 0, 0, 0, 0, 4, 0, 0, 0],
-      ],
-      [
-        [0, 0, 0, 0, 4, 0, 7, 0, 0],
-        [0, 0, 4, 0, 0, 0, 0, 0, 0],
-        [0, 0, 9, 0, 0, 8, 0, 0, 4],
-        [0, 0, 0, 0, 0, 7, 0, 0, 0],
-        [6, 5, 0, 0, 0, 0, 0, 4, 0],
-        [0, 9, 0, 0, 0, 3, 0, 0, 0],
-        [0, 0, 1, 0, 0, 5, 0, 0, 0],
-        [0, 7, 0, 0, 1, 0, 0, 0, 0],
-        [9, 0, 0, 0, 0, 2, 0, 0, 0],
-      ],
-      [
-        [7, 0, 0, 0, 4, 5, 6, 8, 0],
-        [0, 0, 0, 0, 0, 9, 0, 0, 0],
-        [6, 0, 0, 0, 2, 7, 3, 0, 0],
-        [4, 0, 1, 2, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 8, 2, 0, 0],
-        [0, 0, 0, 0, 7, 0, 0, 0, 0],
-        [0, 0, 5, 0, 0, 0, 9, 0, 4],
-        [0, 0, 0, 0, 0, 4, 0, 0, 2],
-        [0, 0, 0, 7, 0, 0, 0, 1, 0],
-      ],
-      [
-        [0, 0, 0, 2, 3, 0, 0, 0, 9],
-        [0, 5, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 6, 0, 0, 2, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 5, 0, 0, 0, 0, 6],
-        [0, 9, 0, 0, 0, 0, 0, 0, 0],
-        [0, 4, 0, 0, 0, 0, 0, 7, 0],
-        [0, 0, 0, 0, 7, 0, 0, 0, 2],
-        [9, 7, 3, 0, 2, 0, 5, 0, 0],
-      ],
-      [
-        [1, 0, 0, 0, 0, 0, 0, 8, 0],
-        [0, 5, 0, 0, 8, 0, 1, 0, 0],
-        [0, 0, 0, 0, 3, 0, 2, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [4, 6, 0, 0, 0, 0, 3, 0, 0],
-        [0, 9, 0, 0, 0, 2, 5, 4, 0],
-        [5, 2, 0, 0, 0, 0, 0, 7, 0],
-        [6, 0, 0, 9, 7, 0, 0, 0, 2],
-        [0, 0, 0, 0, 0, 3, 0, 6, 0],
-      ]
-    ];
-    const randomIndex = Math.floor(Math.random() * arrayOf2DArrays.length);
-
-    return arrayOf2DArrays[randomIndex];
+  const sudoku = new Sudoku();
+  const puzzle = sudoku.generatePuzzle(15);
+  return puzzle;
   }
   
-  function sudokoSolver(board : any) : Boolean{
+  export function sudokoSolver(board : any) : Boolean{
     for(var i = 0; i < 9; i++){
       for(var j = 0; j < 9; j++){
         if(board[i][j] == 0){
@@ -99,16 +26,47 @@ export function generateSudoku() {
     }
     return true;
   }
-  export function validateSudoku(board : any) : Boolean{
-    const boardCopy = JSON.parse(JSON.stringify(board));
-    sudokoSolver(boardCopy);
-    for(var i = 0; i < 9; i++){
-      for(var j = 0; j < 9; j++){
-        if(board[i][j] != boardCopy[i][j]){
-          return false;
+  export function validateSudoku(board: number[][]) : Boolean{
+    // Helper function to check if a list of numbers contains duplicates (excluding zeros)
+    const hasDuplicates = (numbers: number[]): boolean => {
+      const seen = new Set<number>();
+      for (const num of numbers) {
+        if (num !== 0) {
+          if (seen.has(num)) return true;
+          seen.add(num);
         }
       }
+      return false;
+    };
+
+    // Check all rows
+    for (let row = 0; row < 9; row++) {
+      if (hasDuplicates(board[row])) return false;
     }
+
+    // Check all columns
+    for (let col = 0; col < 9; col++) {
+      const column: number[] = [];
+      for (let row = 0; row < 9; row++) {
+        column.push(board[row][col]);
+      }
+      if (hasDuplicates(column)) return false;
+    }
+
+    // Check all 3x3 sub-grids
+    for (let boxRow = 0; boxRow < 9; boxRow += 3) {
+      for (let boxCol = 0; boxCol < 9; boxCol += 3) {
+        const box: number[] = [];
+        for (let row = boxRow; row < boxRow + 3; row++) {
+          for (let col = boxCol; col < boxCol + 3; col++) {
+            box.push(board[row][col]);
+          }
+        }
+        if (hasDuplicates(box)) return false;
+      }
+    }
+
+    // If all checks pass, the board is valid
     return true;
   }
 

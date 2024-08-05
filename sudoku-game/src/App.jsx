@@ -35,20 +35,20 @@ function App() {
   };
 
   const handleSubmit = () => {
-    //if(allValuesInserted(board)){
+    if(allValuesInserted(board)){
       axios.post('http://localhost:4000/api/validate', { board })
       .then(response => {
         if (response.data.valid) {
           alert('Congratulations! You solved it correctly.');
         } else {
-          alert('There are mistakes in your solution.');
+          alert('OOPS! There are mistakes in your solution.');
         }
       })
       .catch(error => console.error(error));
-    //}
-    //else{
-    //  alert("Please Insert all values then complete the game");
-    //x}
+    }
+    else{
+      alert("Please Insert all values then complete the game");
+    }
   };
 
   const handleNewGame = () => {
@@ -81,6 +81,17 @@ function App() {
       setBoard(JSON.parse(JSON.stringify(initialBoard)));
     }
   }
+  function getSolution(){
+    if(window.confirm("Are you certain you want to see the Sudoku solution? This will display the completed puzzle.")){
+      axios.post("http://localhost:4000/api/getSolution", {initialBoard})
+      .then(response => {
+        setBoard(response.data.initialBoard);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }
+  }
   return (
     <div className="App">
       <h1>Sudoku Game</h1>
@@ -89,7 +100,7 @@ function App() {
       <div style={{display:'flex', justifyContent:'space-evenly' }}>
         <button onClick={resetBoard}>Reset Game</button>
         <button onClick={handleNewGame}>New Game</button>
-        <button>Get the solution</button>
+        <button onClick={getSolution}>Get the solution</button>
       </div>
       <div className="board">
         {board.map((row, rowIndex) => (
@@ -100,7 +111,7 @@ function App() {
                 <div
                   key={colIndex}
                   className={`cell ${selectedCell.row === rowIndex && selectedCell.col === colIndex ? 'selected' : ''} ${isInitial ? 'initial' : 'user'} `}
-                  onClick={() => handleCellClick(rowIndex, colIndex)}
+                  onClick={!isInitial ? () => handleCellClick(rowIndex, colIndex) : undefined}
                 >
                   {cell !== 0 ? cell : ''}
                 </div>
@@ -128,7 +139,6 @@ function App() {
           Complete Game
         </button>
       </div>
-
     </div>
   );
 }
