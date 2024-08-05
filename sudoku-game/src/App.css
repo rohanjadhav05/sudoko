@@ -20,10 +20,21 @@
   cursor: pointer;
 }
 
-.selected {
-  background-color: lightblue;
+.cell.selected {
+  background-color: rgb(142, 223, 240);
 }
 
 .input-section {
   margin-top: 20px;
 }
+
+.initial {
+  background-color: #d3d3d3; /* Light grey for initial cells */
+  color: black;
+}
+
+.user {
+  background-color: white; /* White for user-entered cells */
+  color: black;
+}
+
