@@ -1,0 +1,29 @@
+.App {
+  text-align: center;
+}
+
+.board {
+  display: inline-block;
+  margin: 20px;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: lightblue;
+}
+
+.input-section {
+  margin-top: 20px;
+}
