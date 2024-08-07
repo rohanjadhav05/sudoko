@@ -94,10 +94,11 @@ function App() {
   }
   return (
     <div className="App">
-      <h1>Sudoku Game</h1>
-      
+  <div className="wrapper">
+    <h1 style={{display:'flex', justifyContent:'center'}}>Sudoku Game</h1>
+
     <div className="board">
-      <div style={{display:'flex', justifyContent:'space-evenly' }}>
+      <div className="button-group">
         <button onClick={resetBoard}>Reset Game</button>
         <button onClick={handleNewGame}>New Game</button>
         <button onClick={getSolution}>Get the solution</button>
@@ -121,25 +122,34 @@ function App() {
         ))}
       </div>
     </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '10px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', width: '100%', maxWidth: '600px' }}>
-          <h5 style={{ marginRight: '10px', marginBottom: '10px', textAlign: 'center' }}>Select block and insert value</h5>
-          <input 
-            type="number" 
-            min="1" 
-            max="9" 
-            onChange={handleInputChange} 
-            style={{ margin: '10px', width: '50%', maxWidth: '50px' }} 
-          />
-        </div>
-        <button 
-          onClick={handleSubmit} 
-          style={{ marginTop: '20px', padding: '10px 20px', width: '100%', maxWidth: '200px' }}
-        >
-          Complete Game
-        </button>
-      </div>
+
+    <div className="input-container">
+      <h5>Select block and insert value</h5>
+      <input
+        type="number"
+        min="1"
+        max="9"
+        onChange={handleInputChange}
+        className="number-input"
+      />
+      <button onClick={handleSubmit} className="complete-button">
+        Complete Game
+      </button>
     </div>
+  </div>
+
+  <footer className="footer">
+    <h3>
+      Follow me on{' '}
+      <a href="https://www.linkedin.com/in/rohan-jadhav-0511s/">LinkedIn</a>, {' '}
+      <a href="https://github.com/rohanjadhav05">GitHub</a>, and{' '}
+      <a href="https://twitter.com/mrrj0511">Twitter</a>. For inquiries, contact us at{' '}
+      <a href="mailto:rohan.jadhav511@gmail.com">Mail</a>.
+    </h3>
+  </footer>
+</div>
+
+
   );
 }
 
