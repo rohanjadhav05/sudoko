@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     // Fetch the initial Sudoku board from the server
-    axios.get('http://localhost:4000/api/board')
+    axios.get('http://65.0.102.194:4000/api/board')
       .then(response => {
         const fetchedBoard = response.data.board;
         setBoard(fetchedBoard);
@@ -36,7 +36,7 @@ function App() {
 
   const handleSubmit = () => {
     if(allValuesInserted(board)){
-      axios.post('http://localhost:4000/api/validate', { board })
+      axios.post('http://65.0.102.194:4000/api/validate', { board })
       .then(response => {
         if (response.data.valid) {
           alert('Congratulations! You solved it correctly.');
@@ -53,7 +53,7 @@ function App() {
 
   const handleNewGame = () => {
     if(window.confirm("Are you sure you want to start a new game? This will overwrite your current progress. Please confirm if you'd like to proceed.")){
-      axios.get('http://localhost:4000/api/board')
+      axios.get('http://65.0.102.194:4000/api/board')
       .then(response => {
         const fetchedBoard = response.data.board;
         setBoard(fetchedBoard);
@@ -83,7 +83,7 @@ function App() {
   }
   function getSolution(){
     if(window.confirm("Are you certain you want to see the Sudoku solution? This will display the completed puzzle.")){
-      axios.post("http://localhost:4000/api/getSolution", {initialBoard})
+      axios.post("http://65.0.102.194:4000/api/getSolution", {initialBoard})
       .then(response => {
         setBoard(response.data.initialBoard);
       })
