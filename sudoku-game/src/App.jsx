@@ -27,6 +27,9 @@ function App() {
     if(selectedCell.row === -1 || selectedCell.col === -1){
       alert("Please select the box then add the value");
     }
+    else if(value < 1 || value > 9){
+      alert("Entered number cannot be smaller than 1 and greater than 9");
+    }
     else if (value >= 1 && value <= 9) {
       const newBoard = [...board];
       newBoard[selectedCell.row][selectedCell.col] = value;
