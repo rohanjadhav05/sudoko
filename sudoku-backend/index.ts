@@ -10,7 +10,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/api/board', (req:any, res:any) => {
-  const board = generateSudoku();
+  const difficulty = req.query.difficulty;
+  const board = generateSudoku(difficulty);
   res.json({ board });
 });
 

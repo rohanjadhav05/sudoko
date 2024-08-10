@@ -13,6 +13,7 @@ This is a web-based Sudoku application built with React for the frontend and Nod
 ## Features
 
 - Generate Sudoku puzzles.
+- Choose different Difficulty levels.
 - Validate Sudoku puzzles to check if the solution is correct.
 - Get hints for solving the puzzle.
 - Responsive design for playing on various devices.
@@ -77,8 +78,9 @@ Make sure you have the following installed:
 
 1. Open your web browser and go to `http://localhost:3000`.
 2. Start a new Game.
-3. Solve the puzzle or use the "Get Solution" button to validate your progress.
-4. Reset the game if you are stuck.
+3. Choose difficultly level
+4. Solve the puzzle or use the "Get Solution" button to validate your progress.
+5. Reset the game if you are stuck.
 
 ## Technologies Used
 

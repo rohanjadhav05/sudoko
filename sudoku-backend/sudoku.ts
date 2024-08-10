@@ -1,9 +1,17 @@
 import { Sudoku } from "./ClassSudoku";
 
-export function generateSudoku() {
-  const sudoku = new Sudoku();
-  const puzzle = sudoku.generatePuzzle(15);
-  return puzzle;
+  export function generateSudoku(difficulty : string) {
+    var no : number = 0; 
+    if(difficulty === 'easy'){
+      no = 30;
+    }else if(difficulty === 'medium'){
+      no = 23;
+    }else{
+      no = 17;
+    }
+    const sudoku = new Sudoku();
+    const puzzle = sudoku.generatePuzzle(no);
+    return puzzle;
   }
   
   export function sudokoSolver(board : any) : Boolean{
@@ -26,6 +34,7 @@ export function generateSudoku() {
     }
     return true;
   }
+  
   export function validateSudoku(board: number[][]) : Boolean{
     // Helper function to check if a list of numbers contains duplicates (excluding zeros)
     const hasDuplicates = (numbers: number[]): boolean => {
