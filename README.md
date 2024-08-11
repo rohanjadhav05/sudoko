@@ -14,6 +14,7 @@ This is a web-based Sudoku application built with React for the frontend and Nod
 
 - Generate Sudoku puzzles.
 - Choose different Difficulty levels.
+- Timer to check your speed
 - Validate Sudoku puzzles to check if the solution is correct.
 - Get hints for solving the puzzle.
 - Responsive design for playing on various devices.
@@ -43,7 +44,7 @@ Make sure you have the following installed:
     npm install
     ```
 
-3. Comple the Typescript code and start the backend server:
+3. Compile the Typescript code and start the backend server:
 
     ```bash
     tsc -b

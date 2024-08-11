@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
 
@@ -8,6 +8,8 @@ function App() {
   const [selectedCell, setSelectedCell] = useState({ row: -1, col: -1 });
   const [difficulty, setDifficulty] = useState(null);
   const [isPromptVisible, setIsPromptVisible] = useState(true);
+  const [timer, setTimer] = useState(0);  // Timer state
+  const timerRef = useRef(null); 
 
   //const BACKEND_BASE_API = "http://localhost:4000";
   const BACKEND_BASE_API = "http://65.0.102.194:4000";
@@ -16,6 +18,7 @@ function App() {
     const selectedDifficulty = event.target.value;
     setDifficulty(selectedDifficulty);
     setIsPromptVisible(false);
+    startTimer();
   };
 
   useEffect(() => {
@@ -51,6 +54,7 @@ function App() {
 
   const handleSubmit = () => {
     if (allValuesInserted(board)) {
+      stopTimer();
       axios.post(`${BACKEND_BASE_API}/api/validate`, { board })
         .then(response => {
           if (response.data.valid) {
@@ -70,8 +74,26 @@ function App() {
       setIsPromptVisible(true);
       setBoard([]);
       setInitialBoard([]);
+      resetTimer();
     }
   };
+
+  function startTimer() {
+    if (timerRef.current) return;  // Prevent multiple intervals
+    timerRef.current = setInterval(() => {
+      setTimer(prevTime => prevTime + 1);
+    }, 1000);
+  }
+
+  function stopTimer() {
+    clearInterval(timerRef.current);
+    timerRef.current = null;
+  }
+
+  function resetTimer() {
+    stopTimer();
+    setTimer(0);
+  }
 
   function allValuesInserted(board) {
     for (let i = 0; i < 9; i++) {
@@ -86,6 +108,8 @@ function App() {
 
   function resetBoard() {
     if (window.confirm("Are you sure you want to reset the game? All progress will be lost.")) {
+      resetTimer();
+      startTimer();
       setBoard(JSON.parse(JSON.stringify(initialBoard)));
     }
   }
@@ -149,6 +173,9 @@ function App() {
                 <button onClick={resetBoard}>Reset Game</button>
                 <button onClick={handleNewGame}>New Game</button>
                 <button onClick={getSolution}>Get the solution</button>
+              </div>
+              <div className="timer">
+                <h3>Timer: {Math.floor(timer / 60)}:{timer % 60 < 10 ? `0${timer % 60}` : timer % 60}</h3>
               </div>
               <div className="board">
                 {board.map((row, rowIndex) => (
