@@ -41,11 +41,7 @@ function App() {
 
   const handleInputChange = (e) => {
     const value = parseInt(e.target.value);
-    if (selectedCell.row === -1 || selectedCell.col === -1) {
-      alert("Please select a box before adding a value.");
-    } else if (value < 1 || value > 9) {
-      alert("Entered number cannot be smaller than 1 or greater than 9.");
-    } else if (value >= 1 && value <= 9) {
+    if (value >= 1 && value <= 9) {
       const newBoard = [...board];
       newBoard[selectedCell.row][selectedCell.col] = value;
       setBoard(newBoard);
@@ -182,13 +178,28 @@ function App() {
                   <div key={rowIndex} className="row">
                     {row.map((cell, colIndex) => {
                       const isInitial = initialBoard[rowIndex][colIndex] !== 0;
+                      const isSelected = selectedCell.row === rowIndex && selectedCell.col === colIndex;
+
                       return (
                         <div
                           key={colIndex}
-                          className={`cell ${selectedCell.row === rowIndex && selectedCell.col === colIndex ? 'selected' : ''} ${isInitial ? 'initial' : 'user'} `}
+                          className={`cell ${isSelected ? 'selected' : ''} ${isInitial ? 'initial' : 'user'}`}
                           onClick={!isInitial ? () => handleCellClick(rowIndex, colIndex) : undefined}
                         >
-                          {cell !== 0 ? cell : ''}
+                          {isSelected && !isInitial ? (
+                            <input 
+                              type="text"
+                              min="1"
+                              max="9"
+                              value={cell !== 0 ? cell : ''}
+                              onChange={(e) => handleInputChange(e, rowIndex, colIndex)}
+                              onBlur={() => setSelectedCell({ row: -1, col: -1 })} // Deselect after editing
+                              className="cell-input"
+                              autoFocus
+                            />
+                          ) : (
+                            cell !== 0 ? cell : ''
+                          )}
                         </div>
                       );
                     })}
@@ -198,14 +209,6 @@ function App() {
             </div>
 
             <div className="input-container">
-              <h5>Select block and insert value</h5>
-              <input
-                type="number"
-                min="1"
-                max="9"
-                onChange={handleInputChange}
-                className="number-input"
-              />
               <button onClick={handleSubmit} className="complete-button">
                 Complete Game
               </button>
