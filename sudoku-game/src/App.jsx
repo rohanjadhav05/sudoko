@@ -188,7 +188,7 @@ function App() {
                         >
                           {isSelected && !isInitial ? (
                             <input 
-                              type="text"
+                              type="number"
                               min="1"
                               max="9"
                               value={cell !== 0 ? cell : ''}
