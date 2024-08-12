@@ -40,8 +40,9 @@ function App() {
   };
 
   const handleInputChange = (e) => {
-    const value = parseInt(e.target.value);
-    if (value >= 1 && value <= 9) {
+    const value = e.target.value === '' ? 0 : parseInt(e.target.value);
+
+    if ((value >= 1 && value <= 9) || value === 0) {
       const newBoard = [...board];
       newBoard[selectedCell.row][selectedCell.col] = value;
       setBoard(newBoard);
@@ -188,7 +189,7 @@ function App() {
                         >
                           {isSelected && !isInitial ? (
                             <input 
-                              type="number"
+                              type="text"
                               min="1"
                               max="9"
                               value={cell !== 0 ? cell : ''}
